@@ -13,6 +13,8 @@ struct ContentView: View {
     let astronauts: [Astronaut] = Bundle.main.decode("astronauts.json")
     let missions: [Mission] = Bundle.main.decode("missions.json")
     
+    @State var barButton = true
+
     var body: some View {
         
         NavigationView {
@@ -26,11 +28,16 @@ struct ContentView: View {
                     VStack(alignment: .leading) {
                         Text(mission.displayName)
                             .font(.headline)
-                        Text(mission.formattedLaunchDate)
+                        Text(self.barButton ? mission.formattedLaunchDate : mission.formattedNames)
                     }
                 }
             }
             .navigationBarTitle("Moonshot")
+            .navigationBarItems(trailing:
+                Button(self.barButton ? "Crew Names" : "Launch Dates") {
+                    self.barButton.toggle()
+                }
+            )
         }
     }
 }

@@ -39,4 +39,21 @@ struct Mission: Codable, Identifiable {
         }
     }
     
+    var formattedNames: String {
+        var crewNames = [String]()
+        for crew in crew {
+            crewNames.append(crew.name.capitalizingFirstLetter())
+        }
+        return crewNames.joined(separator: ", ")
+    }
+}
+
+extension String {
+    func capitalizingFirstLetter() -> String {
+        return prefix(1).capitalized + dropFirst()
+    }
+
+    mutating func capitalizeFirstLetter() {
+        self = self.capitalizingFirstLetter()
+    }
 }
