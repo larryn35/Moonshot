@@ -32,6 +32,7 @@ struct MissionView: View {
                     Text(self.mission.description)
                         .padding()
                     
+                    VStack(alignment: .leading) {
                     ForEach(self.astronauts, id: \.role) { crewMember in
                         NavigationLink(destination: AstronautView(astronaut: crewMember.astronaut)) {
                             HStack {
@@ -53,6 +54,7 @@ struct MissionView: View {
                     }
                     Spacer(minLength: 25)
                 }
+                }
             }
         }
         .navigationBarTitle(Text(mission.displayName), displayMode: .inline)
@@ -63,7 +65,7 @@ struct MissionView: View {
         self.mission = mission
         
         var matches = [CrewMember]()
-        
+                
         for member in mission.crew {
             if let match = astronauts.first(where: { $0.id == member.name }) {
                 matches.append(CrewMember(role: member.role, astronaut: match))
